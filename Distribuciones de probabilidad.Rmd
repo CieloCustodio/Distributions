@@ -1,0 +1,128 @@
+---
+title: "AFDMD-111 Estadística"
+author: "Custodio Vidal Cielo"
+date: "09/10/2023"
+output:
+  rmdformats::readthedown:
+    highlight: kate
+    cards: no
+subtitle: Distribuciones de probabilidad
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Distribuciones discretas de probabilidad
+
+Las distribuciones probabilidad se pueden clasificar en dos tipos importantes:
+
+- Distribuciones discretas.
+- Distribuciones continuas.
+
+
+### Distribución de Bernoulli
+
+Entre las distribuciones de probabilidad discretas podemos mencionar a la distribución de Bernoulli, la cual tiene la siguiente forma matemática:
+
+$$
+p(k) = p^k(1-p)^{1-k}, \; \mbox{para} \; k\in (0,1)
+$$
+
+
+En `R`, podemos simular muestras de la distribución de Bernoulli mediante el comando:
+
+```{r}
+# Sacamos una muestra de 30 datos Bernoulli y graficamos
+datos <- rbinom(n=30, size=1, prob=0.3)
+plot(datos, type="h", main="Datos de dist de Bernoulli")
+points(datos)
+```
+En este caso size representa a $n$ que es igual a $1$. Otra distribución discreta importante es la Binomial (la de Bernoulli es un caso especial de ésta).
+
+### Distribución Binomial
+
+La distribución binomial representa el número de éxitos en $n$ intentos, mientras que la de Bernoulli, representa éxito o fracaso, la fórmula que representa a la distribución Binomial está dada por:
+
+$$
+Pr(X=k) = {n\choose k} p^k(1-p)^{n-k}
+$$
+En `R` podemos simular a la distribución Binomial como:
+```{r binomial}
+datos <- rbinom(30, size=20, prob=0.6)
+plot(datos, type="h", main= "Distribución binomial")
+points(datos)
+```
+y si hacemos la probabilidad más pequeña ($p=0.1$), tenemos;
+
+```{r binomial2}
+datos <- rbinom(30, size=20, prob=0.1)
+plot(datos, type="h", main= "Distribución binomial")
+points(datos)
+```
+
+### Tarea
+
+Investigar las siguiente distribuciones discretas y verificar cómo se pueden generar en `R` (Nota: no es necesario generarlos en `R`, es opcional).
+
+- Distribución de Poison.
+R= Distribución de probabilidad discreta que se aplica a las ocurrencias de algún evento durante un periodo determinado. Una distribución es discreta cuando se toma un número de valor finito, mientras que las continuas usan un número infinito de valores.Se genera la función rpois() en R. Esta función toma dos argumentos: lambda (la media de la distribución) y n (el número de valores aleatorios a generar). Por ejemplo, para generar 10 valores aleatorios de una distribución de Poisson con media 3, puede usar el siguiente código: rpois(n = 10, lambda = 3).
+
+- Distribución Geométrica.
+R= Modelo adecuado para aquellos procesos en los que se repiten pruebas hasta la consecución del éxito a resultado deseado y tiene interesantes aplicaciones en los muestreos realizados de esta manera . También implica la existencia de una dicotomía de posibles resultados y la independencia de las pruebas entre sí.La distribución geométrica se puede generar utilizando la función rgeom() en R. Esta función toma dos argumentos: p (la probabilidad de éxito) y n (el número de valores aleatorios a generar). Por ejemplo, para generar 10 valores aleatorios de una distribución geométrica con una probabilidad de éxito de 0.3, puede usar el siguiente código: rgeom(n = 10, p = 0.3).
+
+
+- Distribución Uniforme discreta.
+R=   Es una distribución muy sencilla que asigna probabilidades iguales a un conjunto finito de puntos del espacio.
+La distribución uniforme discreta se puede generar utilizando la función sample() en R. Esta función toma tres argumentos: x (el vector de valores para muestrear), size (el número de valores aleatorios a generar) y replace (si se debe muestrear con reemplazo o no). Por ejemplo, para generar 10 valores aleatorios de una distribución uniforme discreta con valores 1, 2, 3 y 4, puede usar el siguiente código: sample(x = c(1, 2, 3, 4), size = 10, replace = TRUE).
+
+
+- Distribución Hipergeométrica.
+
+R=  distribución discreta que modela el número de eventos en una muestra de tamaño fijo cuando usted conoce el número total de elementos en la población de la cual proviene la muestra. Cada elemento de la muestra tiene dos resultados posibles (es un evento o un no evento). Las muestras no tienen reemplazo, por lo que cada elemento de la muestra es diferente. Cuando se elige un elemento de la población, no se puede volver a elegir.
+La distribución uniforme discreta se puede generar utilizando la función sample() en R. Esta función toma tres argumentos: x (el vector de valores para muestrear), size (el número de valores aleatorios a generar) y replace (si se debe muestrear con reemplazo o no). Por ejemplo, para generar 10 valores aleatorios de una distribución uniforme discreta con valores 1, 2, 3 y 4, puede usar el siguiente código: sample(x = c(1, 2, 3, 4), size = 10, replace = TRUE).
+
+
+## Distribuciones continuas
+
+En probabilidad los datos pueden ser continuos y discretos, cuando son discretos los modelamos mediante distribuciones discretas mientras si los datos tienen un continuo de valores, entonces se tienen que modelar mediante distribuciones de probabilidad continuas. Un ejemplo clásico de distribución continua es la distribución normal o Gaussiana. Las distribuciones continuas igual se representan mediante ecuaciones y en esto caso pueden ser representados por funciones llamadas PDFs o CDFs. A continuación definimos algunas de ellas.
+
+### Distribución Gaussiana o normal
+
+Se dice que los datos son Gaussianos cuando éstos vinieron de una distribución Gaussiana, la cual tiene la siguiente forma:
+
+$$
+f(x) = \frac{1}{\sqrt{2\pi \sigma^2}}\mbox{e}^{\frac{-(x-\mu)^2}{2\sigma^2}}
+$$
+
+En `R` esta distribución de puede simular como:
+
+```{r}
+datos <- rnorm(100,mean=0, sd=1)
+plot(datos, type="l", main="Datos Gaussianos")
+```
+Existen muchas otras distribuciones continuas y el objetivo de ellas es adecuar nuestros datos a una de ellas con el objetivo de simular situaciones con valores tomados de ellas.
+
+
+### Tarea
+
+Investigar las siguientes distribuciones continuas de probabilidad (pueden incorporar el código en `R` que las genera aunque es opcional).
+
+- Distribución uniforme continua.
+R= Se basa en la idea de que cada valor dentro de un rango dado tiene la misma probabilidad de ocurrir. Esta idea se remonta a los juegos de azar y las apuestas, donde los jugadores necesitan estimar las probabilidades de que ciertos resultados ocurran para poder hacer apuestas informadas.
+En R, se puede generar una distribución uniforme continua utilizando la función runif().
+
+
+- Distribución exponencial.
+R= La distribución exponencial se utiliza para modelar el tiempo entre eventos que ocurren de manera aleatoria y que siguen una tasa constante. Por ejemplo, el tiempo entre fallos de un sistema mecánico puede seguir una distribución exponencial. Esta distribución se puede representar mediante una función de densidad exponencial decreciente. En R, se puede generar una distribución exponencial utilizando la función rexp().
+
+- Distribución Rayleigh
+R= es la distribución de la magnitud de un vector aleatorio bidimensional cuyas coordenadas son independientes, distribuidas idénticamente, significan 0 variables normales. La distribución tiene una serie de aplicaciones en entornos donde las magnitudes de las variables normales son importantes.
+Esta distribución se puede representar mediante una función de densidad que tiene una forma de campana asimétrica. En R, se puede generar una distribución Rayleigh utilizando la función rnorm().
+
+
+- Distribución Gamma.
+R= Distribución de probabilidad continua definida por dos parámetros característicos, α y λ. Es decir, la distribución gamma depende del valor de sus dos parámetros: α es el parámetro de forma y λ es el parámetro de escala.Por ejemplo, el tiempo que tarda en llegar un cierto número de clientes a una tienda puede seguir una distribución gamma. Esta distribución se puede representar mediante una función de densidad que tiene una forma de campana asimétrica. En R, se puede generar una distribución gamma utilizando la función rgamma().
+
+La tarea se debe entregar el día Miércoles 18 de octubre de 2023.
+Atte. Dr. Julio César Ramírez Pacheco.
